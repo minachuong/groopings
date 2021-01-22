@@ -1,0 +1,12 @@
+.list-container {
+  display: block;
+  color: white;
+}
+
+.list-title {
+  font-size: large;
+}
+
+.list-grooping {
+  padding: 20px;
+}

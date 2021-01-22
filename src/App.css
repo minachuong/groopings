@@ -1,0 +1,29 @@
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+}
+
+label {
+  color: white;
+  display: block;
+}
+
+input, textarea, .buttons-container {
+  display: block;
+  margin-bottom: 20px;
+}
+
+textarea {
+  height: 200px;
+}
+
+.groopings {
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  padding: 20px;
+}
