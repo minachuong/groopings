@@ -1,10 +1,12 @@
 .list-container {
   display: block;
   color: white;
+  padding: 1.25rem;
 }
 
 .list-title {
   font-size: large;
+  margin: 0;
 }
 
 .list-grooping {

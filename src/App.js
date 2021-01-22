@@ -69,49 +69,48 @@ class App extends Component {
       <div className="App">
         <div className="container">
           <label htmlFor="names">
-              Add names <span>(new line for each name please)</span>
-            <textarea 
-              name="names" 
-              onChange={this.setGroop}/>
+              Add names 
+              <span className="label-description">(new line for each name please)</span>
           </label>
+          <textarea 
+            name="names" 
+            onChange={this.setGroop}/>
+          <button onClick={this.setRandomizedList}>Randomize List</button>
+        </div>
+        <ListContainer title="Customize Groopings">
           <label htmlFor="groopSize">
-            Groop Size
+              Groop Size
+            </label>
             <input 
               name="groopSize"
               type="number" 
               value={this.state.groopSize} 
               onChange={this.setGroopSizeChange}/>
-          </label>
-          <div className="buttons-container">
             <button onClick={this.setGroopings}>Create Groop</button>
-            <button onClick={this.setRandomizedList}>Randomize List</button>
-          </div>
-        </div>
-        <div className="container">
-          { this.state.randomizedList.length > 0 && (
-            <ListContainer title="Randomized List">
-              { this.state.randomizedList.map((name, index) => {
-                  return (<div key={index}>{name}</div>);
-              })}
-            </ListContainer>
-          )}
-          { this.state.groopings.length > 0 && (
-            <ListContainer title="Groopings">
-              { this.state.groopings.length > 0 && this.state.groopings.map((groop, index) => {
-                return (
-                  <div key={index}>
-                    <div key={index}>Groop {index}</div>
-                    <ul>
-                      { groop.map((name, nameIndex) => {
-                        return(<li key={nameIndex}>{name}</li>);
-                      })}
-                    </ul>
-                  </div>
-                );
-              })}
-            </ListContainer>
-          )}
-        </div>
+        </ListContainer>
+        { this.state.randomizedList.length > 0 && (
+          <ListContainer title="Randomized List">
+            { this.state.randomizedList.map((name, index) => {
+                return (<div key={index}>{name}</div>);
+            })}
+          </ListContainer>
+        )}
+        { this.state.groopings.length > 0 && (
+          <ListContainer title="Groopings">
+            { this.state.groopings.length > 0 && this.state.groopings.map((groop, index) => {
+              return (
+                <div key={index}>
+                  <div key={index}>Groop {index + 1}</div>
+                  <ul>
+                    { groop.map((name, nameIndex) => {
+                      return(<li key={nameIndex}>{name}</li>);
+                    })}
+                  </ul>
+                </div>
+              );
+            })}
+          </ListContainer>
+        )}
       </div>
     );
   }

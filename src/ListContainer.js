@@ -4,7 +4,7 @@ import './ListContainer.css'
 function ListContainer(props) {
   return (
     <div className="list-container">
-      <div className="list-title">{props.title}</div>
+      <h2 className="list-title">{props.title}</h2>
       <div className="list-grooping">
         {props.children} 
       </div>

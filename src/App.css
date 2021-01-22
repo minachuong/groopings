@@ -4,26 +4,53 @@
   display: flex;
 }
 
+h2 {
+  color: white;
+  font-size: large;
+}
+
 label {
   color: white;
   display: block;
+  padding-bottom: .5rem;
 }
 
-input, textarea, .buttons-container {
+.label-description {
   display: block;
-  margin-bottom: 20px;
+}
+
+span {
+  font-size: .75rem;
 }
 
 textarea {
-  height: 200px;
+  height: 20rem;
 }
 
-.groopings {
+input, textarea {
+  display: block;
+  margin-bottom: 1.25rem;
+  width: auto;
+}
+
+button {
+  height: 2rem;
+  width: 100%;
+  border: 2px solid white;
+  background: none;
   color: white;
-  display: flex;
-  flex-direction: column;
+}
+
+button:focus {
+  outline: lightskyblue auto .5rem;
 }
 
 .container {
-  padding: 20px;
+  padding: 1.25rem;
+}
+
+.groopings {
+  display: flex;
+  color: white;
+  flex-direction: column;
 }
