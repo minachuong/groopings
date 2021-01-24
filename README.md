@@ -1,7 +1,7 @@
 # Create Groopings!
 
 This app is a utility for generating randomize lists and pairings of students in a LEARN Academy classroom.
-Use it at [https://groopings.netlify.app/](https://groopings.netlify.app/)!
+Use it at [https://groopings.netlify.app/](https://groopings.netlify.app/)! [![Netlify Status](https://api.netlify.com/api/v1/badges/80f6ec64-a98b-4f1f-b2ac-f78110259d8c/deploy-status)](https://app.netlify.com/sites/groopings/deploys)
 
 ## Some goals
 - Test with React Testing Library
