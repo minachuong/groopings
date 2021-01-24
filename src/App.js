@@ -75,7 +75,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div role="main" className="App">
         <section>
           <label>
             Add names 
@@ -97,8 +97,8 @@ class App extends Component {
           <button onClick={this.setGroopings}>Create Groopings</button>
         </ListContainer>
         { this.state.randomizedList.length > 0 && (
-          <ListContainer title="Randomized List">
-            <ul>
+          <ListContainer title="Randomized List" id="RandomizedList">
+            <ul aria-labelledby="RandomizedList">
               { this.state.randomizedList.map((name, index) => {
                   return (<li key={index}>{name}</li>);
               })}
@@ -110,8 +110,8 @@ class App extends Component {
             { this.state.groopings.length > 0 && this.state.groopings.map((groop, index) => {
               return (
                 <Fragment key={index}>
-                  <h4 id={`Groop${index}`}>Groop {index + 1}</h4>
-                  <ul aria-labelledby={`Groop${index}`}>
+                  <h4 id={`Groop${index + 1}`}>Groop {index + 1}</h4>
+                  <ul aria-labelledby={`Groop${index + 1}`}>
                     { groop.map((name, nameIndex) => {
                       return(<li key={nameIndex}>{name}</li>);
                     })}

@@ -1,10 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
 describe('When App is rendered', () => {
   beforeEach(() => {
     render(<App />);
+  });
+
+  afterEach(() => {
+    cleanup();
   });
 
   it('displays the initial state correctly', () => {
@@ -69,10 +73,14 @@ describe('When App is rendered', () => {
         const expectedGroops = ['Groop 1', 'Groop 2', 'Groop 3'];
         expectedGroops.forEach((groop) => {
           expect(screen.getByRole('heading', {name: groop})).toBeInTheDocument();
+          expect(screen.getByLabelText(groop, {selector: 'ul'})).toBeInTheDocument();
         });
 
-        const firstGroop = screen.getByRole('list', {name: 'Groop 1'});
-        expect(firstGroop).toBeInTheDocument();
+        // TODO: how do I assert that the first group has 3 children? 
+        const expectedNames = ['Churro', 'Mina', 'Patrick', 'Patricio', 'La Mina', 'Churroro', 'Churrito'];
+        expectedNames.forEach((name) => {
+          expect(screen.getByText(name)).toBeInTheDocument();
+        });
       });
     });
   });
