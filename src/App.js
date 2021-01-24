@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import './App.css';
 import ListContainer from './ListContainer'
 
@@ -9,7 +9,7 @@ class App extends Component {
       list: [],
       groopSize: 2,
       groopings: [],
-      randomizedList: []
+      randomizedList: [],
     };
   }
 
@@ -20,16 +20,15 @@ class App extends Component {
   }
 
   setGroopings = () => {
-    // randomize list
     const randomizedList = this.generateRandomizeList();
-    // Initalize list of arrays (list length / groopSize), each inner array represents a grooping
     const groopings = [];
     const numberOfGroopings = Math.floor(randomizedList.length / this.state.groopSize);
+      
     for(let i=0; i<numberOfGroopings; i++) {
       groopings.push([]);
     }
+
     // TODO: account for remainders (if number remaining is more than half of divisor, add a new groop, for now)
-    // while there are names in list, shift from list into inner arrays
     let index = 0;
     while(randomizedList.length) {
       groopings[index].push(randomizedList.shift());
@@ -57,7 +56,17 @@ class App extends Component {
   }
 
   setGroopSizeChange = (event) => {
-    this.setState({groopSize: event.target.value});
+    this.setState({
+      groopSize: event.target.value,
+      isGroopsBySize: true
+    });
+  }
+
+  setNumberOfGroups = (event) => {
+    this.setState({
+      numberOfGroops: event.target.value,
+      isGroopsBySize: false
+    });
   }
 
   setRandomizedList = () => {
@@ -67,46 +76,47 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="container">
-          <label htmlFor="names">
-              Add names 
-              <span className="label-description">(new line for each name please)</span>
+        <section>
+          <label>
+            Add names 
+            <textarea 
+              autoFocus
+              placeholder="Enter each name on a new line"
+              onChange={this.setGroop}/>
           </label>
-          <textarea 
-            name="names" 
-            onChange={this.setGroop}/>
           <button onClick={this.setRandomizedList}>Randomize List</button>
-        </div>
+        </section>
         <ListContainer title="Customize Groopings">
-          <label htmlFor="groopSize">
-              Groop Size
-            </label>
+          <label>
+            Groop Size
             <input 
-              name="groopSize"
               type="number" 
               value={this.state.groopSize} 
               onChange={this.setGroopSizeChange}/>
-            <button onClick={this.setGroopings}>Create Groop</button>
+          </label>
+          <button onClick={this.setGroopings}>Create Groopings</button>
         </ListContainer>
         { this.state.randomizedList.length > 0 && (
           <ListContainer title="Randomized List">
-            { this.state.randomizedList.map((name, index) => {
-                return (<div key={index}>{name}</div>);
-            })}
+            <ul>
+              { this.state.randomizedList.map((name, index) => {
+                  return (<li key={index}>{name}</li>);
+              })}
+            </ul>
           </ListContainer>
         )}
         { this.state.groopings.length > 0 && (
           <ListContainer title="Groopings">
             { this.state.groopings.length > 0 && this.state.groopings.map((groop, index) => {
               return (
-                <div key={index}>
-                  <div key={index}>Groop {index + 1}</div>
-                  <ul>
+                <Fragment key={index}>
+                  <h4 id={`Groop${index}`}>Groop {index + 1}</h4>
+                  <ul aria-labelledby={`Groop${index}`}>
                     { groop.map((name, nameIndex) => {
                       return(<li key={nameIndex}>{name}</li>);
                     })}
                   </ul>
-                </div>
+                </Fragment>
               );
             })}
           </ListContainer>

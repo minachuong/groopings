@@ -4,18 +4,26 @@
   display: flex;
 }
 
-h2 {
+h2, h4, label, button, section {
   color: white;
+}
+
+section {
+  padding: 1.25rem;
+}
+
+h2 {
   font-size: large;
+  margin: 0;
+  margin-bottom: .2rem;
+}
+
+h4 {
+  font-size: medium;
+  margin: 0;
 }
 
 label {
-  color: white;
-  display: block;
-  padding-bottom: .5rem;
-}
-
-.label-description {
   display: block;
 }
 
@@ -38,15 +46,15 @@ button {
   width: 100%;
   border: 2px solid white;
   background: none;
-  color: white;
 }
 
 button:focus {
   outline: lightskyblue auto .5rem;
+  border-radius: 0;
 }
 
-.container {
-  padding: 1.25rem;
+ul {
+  margin: .2rem;
 }
 
 .groopings {
