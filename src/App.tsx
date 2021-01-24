@@ -1,37 +1,44 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component, Fragment, ChangeEvent} from 'react'
 import './App.css';
 import ListContainer from './ListContainer'
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: [],
-      groopSize: 2,
-      groopings: [],
-      randomizedList: [],
-    };
-  }
+interface Props {}
 
-  setGroop = (event) => {
-    const names = event.target.value.split('\n');
-    const filteredNames = names.filter(name => name !== "");
+interface State {
+  list: string[];
+  groopSize: number;
+  groopings: string[][];
+  randomizedList: string[];
+}
+
+export default class App extends Component<Props, State> {
+  state: State = {
+    list: [],
+    groopSize: 2,
+    groopings: [],
+    randomizedList: [],
+  };
+
+  setList = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    const names: string[] = event.target.value.split('\n');
+    const filteredNames: string[] = names.filter(name => name !== "");
     this.setState({list: filteredNames});
   }
 
-  setGroopings = () => {
-    const randomizedList = this.generateRandomizeList();
-    const groopings = [];
-    const numberOfGroopings = Math.floor(randomizedList.length / this.state.groopSize);
-      
+  setGroopings = (): void => {
+    const randomizedList: string[] = this.generateRandomizeList();
+    const groopings: string[][] = [];
+    const numberOfGroopings: number = Math.floor(randomizedList.length / this.state.groopSize);
+
     for(let i=0; i<numberOfGroopings; i++) {
       groopings.push([]);
     }
 
-    // TODO: account for remainders (if number remaining is more than half of divisor, add a new groop, for now)
+    // TODO: account for remainders (if number remaining is more than half of divisor, add a new groop) ?
     let index = 0;
     while(randomizedList.length) {
-      groopings[index].push(randomizedList.shift());
+      groopings[index].push(randomizedList[0]);
+      randomizedList.shift(); // type error if used above b/c shift() => string | undefined
 
       if (index === groopings.length - 1) {
         index = 0;
@@ -42,12 +49,12 @@ class App extends Component {
     this.setState({groopings: groopings});
   }
 
-  generateRandomizeList = () => {
-    const originalList = [...this.state.list];
-    let newRandomizedList = [];
+  generateRandomizeList = (): string[] => {
+    const originalList: string[] = [...this.state.list];
+    let newRandomizedList: string[] = [];
 
     while(originalList.length) {
-      const randomNumber = Math.floor(Math.random() * originalList.length);
+      const randomNumber: number = Math.floor(Math.random() * originalList.length);
       newRandomizedList.push(originalList[randomNumber]);
       originalList.splice(randomNumber, 1);
     }
@@ -55,21 +62,20 @@ class App extends Component {
     return newRandomizedList;
   }
 
-  setGroopSizeChange = (event) => {
+  setGroopSizeChange = (event: ChangeEvent<HTMLInputElement>): void => {
     this.setState({
-      groopSize: event.target.value,
-      isGroopsBySize: true
+      groopSize: +event.target.value,
     });
   }
 
-  setNumberOfGroups = (event) => {
-    this.setState({
-      numberOfGroops: event.target.value,
-      isGroopsBySize: false
-    });
-  }
+  // setNumberOfGroups = (event: ChangeEvent<HTMLInputElement>): void => {
+  //   this.setState({
+  //     numberOfGroops: +event.target.value,
+  //     isGroopsBySize: false
+  //   });
+  // }
 
-  setRandomizedList = () => {
+  setRandomizedList = (): void => {
     this.setState({randomizedList : this.generateRandomizeList()});
   }
 
@@ -82,7 +88,7 @@ class App extends Component {
             <textarea 
               autoFocus
               placeholder="Enter each name on a new line"
-              onChange={this.setGroop}/>
+              onChange={this.setList}/>
           </label>
           <button onClick={this.setRandomizedList}>Randomize List</button>
         </section>
@@ -125,5 +131,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

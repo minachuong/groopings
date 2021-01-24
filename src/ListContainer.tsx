@@ -1,6 +1,10 @@
-import React from 'react'
+interface Props {
+  id?: string;
+  title: string;
+  children: any;
+}
 
-function ListContainer(props) {
+function ListContainer(props: Props) {
   return (
     <section>
       <h2 id={props.id}>{props.title}</h2>
