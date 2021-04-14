@@ -1,6 +1,7 @@
 import React, {Component, Fragment, ChangeEvent} from 'react'
 import './App.css';
 import ListContainer from './ListContainer'
+import ToggleSwitch from './ToggleSwitch'
 
 interface Props {}
 
@@ -9,6 +10,8 @@ interface State {
   groopSize: number;
   groopings: string[][];
   randomizedList: string[];
+  numberOfGroops: number;
+  isGroopedBySize: boolean;
 }
 
 export default class App extends Component<Props, State> {
@@ -17,6 +20,8 @@ export default class App extends Component<Props, State> {
     groopSize: 2,
     groopings: [],
     randomizedList: [],
+    numberOfGroops: 2,
+    isGroopedBySize: true,
   };
 
   setList = (event: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -28,7 +33,9 @@ export default class App extends Component<Props, State> {
   setGroopings = (): void => {
     const randomizedList: string[] = this.generateRandomizeList();
     const groopings: string[][] = [];
-    const numberOfGroopings: number = Math.floor(randomizedList.length / this.state.groopSize);
+    const numberOfGroopings: number = this.state.isGroopedBySize 
+      ? Math.floor(randomizedList.length / this.state.groopSize)
+      : this.state.numberOfGroops;
 
     for(let i=0; i<numberOfGroopings; i++) {
       groopings.push([]);
@@ -55,6 +62,7 @@ export default class App extends Component<Props, State> {
 
     while(originalList.length) {
       const randomNumber: number = Math.floor(Math.random() * originalList.length);
+        
       newRandomizedList.push(originalList[randomNumber]);
       originalList.splice(randomNumber, 1);
     }
@@ -68,18 +76,23 @@ export default class App extends Component<Props, State> {
     });
   }
 
-  // setNumberOfGroups = (event: ChangeEvent<HTMLInputElement>): void => {
-  //   this.setState({
-  //     numberOfGroops: +event.target.value,
-  //     isGroopsBySize: false
-  //   });
-  // }
+  setNumberOfGroups = (event: ChangeEvent<HTMLInputElement>): void => {
+    this.setState({
+      numberOfGroops: +event.target.value,
+    });
+  }
 
   setRandomizedList = (): void => {
     this.setState({randomizedList : this.generateRandomizeList()});
   }
 
+  setIsGroopedBySize = (value: boolean): void => {
+    this.setState({isGroopedBySize: value});
+  }
+
   render() {
+    const listLength = this.state.list.length;
+
     return (
       <div role="main" className="App">
         <section>
@@ -90,17 +103,42 @@ export default class App extends Component<Props, State> {
               placeholder="Enter each name on a new line"
               onChange={this.setList}/>
           </label>
-          <button onClick={this.setRandomizedList}>Randomize List</button>
+          <button 
+            disabled={listLength <= 1} 
+            onClick={this.setRandomizedList}>
+              Randomize List
+          </button>
         </section>
         <ListContainer title="Customize Groopings">
+          <ToggleSwitch 
+            id="groopSizeSwitch" 
+            label="Groop by size" 
+            toggleHandler={this.setIsGroopedBySize}/>
           <label>
             Groop Size
             <input 
+              disabled={!this.state.isGroopedBySize}
               type="number" 
               value={this.state.groopSize} 
+              min={1}
+              max={this.state.list.length}
               onChange={this.setGroopSizeChange}/>
           </label>
-          <button onClick={this.setGroopings}>Create Groopings</button>
+          <label>
+            Number of Groops
+            <input 
+              disabled={this.state.isGroopedBySize}
+              type="number" 
+              value={this.state.numberOfGroops} 
+              min={1}
+              max={this.state.list.length}
+              onChange={this.setNumberOfGroups}/>
+          </label>
+          <button 
+            onClick={this.setGroopings} 
+            disabled={listLength <= 1}>
+              Create Groopings
+          </button>
         </ListContainer>
         { this.state.randomizedList.length > 0 && (
           <ListContainer title="Randomized List" id="RandomizedList">

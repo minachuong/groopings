@@ -6,8 +6,9 @@ Use it at [https://groopings.netlify.app/](https://groopings.netlify.app/)!\
 [![Netlify Status](https://api.netlify.com/api/v1/badges/80f6ec64-a98b-4f1f-b2ac-f78110259d8c/deploy-status)](https://app.netlify.com/sites/groopings/deploys)
 
 ## Some goals
+- Do the React things in very Reacty ways
 - Test with React Testing Library
-- Learn about accessibility and have that reflected in unit testing
+- Learn about web accessibility, better use of semantic elements and aria-tags/rules, and have that reflected in unit testing
 
 ### `yarn start`
 

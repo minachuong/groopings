@@ -1,0 +1,55 @@
+.switch {
+  display: inline-flex;
+  align-items: center;
+  margin: 5px 0;
+  position: relative;
+}
+
+.switch .switch-toggle {
+  cursor: pointer;
+}
+
+.switch .switch-toggle::before, 
+.switch .switch-toggle::after {
+  content: '';
+  background: #BDBDBD;
+  margin: 0 3px;
+  transition: all 100ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  display: block;
+}
+
+.switch .switch-toggle::before {
+  height: 1.3em;
+  width: 3em;
+  opacity: 0.6;
+}
+
+.switch .switch-toggle::after {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: 1.7em;
+  width: 1.7em;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2), 0 0 2px rgba(0,0,0,0.4);
+}
+
+.switch [type=checkbox]:checked+.switch-toggle::before, 
+.switch [type=checkbox]:checked+.switch-toggle::after {
+  background: #00897B;
+}
+
+.switch [type=checkbox]:checked+.switch-toggle::after {
+  transform: translate(calc(3em - 100%), -50%);
+}
+
+.switch [type=checkbox]:focus+.switch-toggle {
+  outline: 1px solid #5d9dd5;
+  box-shadow: 0 0 8px #5e9ed6;
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
