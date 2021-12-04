@@ -31,5 +31,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 CI/CD with Netlify!
-
-Kickey was here!
